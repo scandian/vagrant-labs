@@ -7,6 +7,9 @@
 #   :memory     Override a basebox's default RAM allocation - numeric in MB.
 #                   Note: the default value for an existing box will not be
 #                   restored until the box is destroyed and recreated.
+#   :cpu        Override a basebox's default CPU count - numeric.
+#                   Note: the default value for an existing box will not be
+#                   restored until the box is destroyed and recreated.
 
 domain  = "yelllabs"
 nodes   = {
@@ -86,6 +89,10 @@ Vagrant::Config.run do |config|
 
             unless node_opts[:memory].nil?
                 modifyvm_args << '--memory' << node_opts[:memory].to_s
+            end
+
+            unless node_opts[:cpu].nil?
+                modifyvm_args << '--cpus' << node_opts[:cpu].to_s
             end
 
             c.vm.customize(modifyvm_args)
